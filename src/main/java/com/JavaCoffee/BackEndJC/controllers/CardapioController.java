@@ -21,8 +21,8 @@ public class CardapioController {
 	
 	@PostMapping
 	public Cardapio novoItem(@RequestParam String nome,@RequestParam Double preco,
-			@RequestParam String descricao,@RequestParam String imagem) {
-		Cardapio novoItem = new Cardapio(nome, preco, descricao, imagem);
+			@RequestParam String descricao,@RequestParam String imagem, String categoria) {
+		Cardapio novoItem = new Cardapio(nome, preco, descricao, imagem, categoria);
 		cardapioRepository.save(novoItem);
 		return novoItem;
 	}

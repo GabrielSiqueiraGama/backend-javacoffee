@@ -6,8 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity(name = "cardapio")
 public class Cardapio {
@@ -20,11 +19,13 @@ public class Cardapio {
     private Double preco;
     private String descricao;
     private String imagem;
+    private String categoria;
 
-    public Cardapio(String nome, Double preco, String descricao, String imagem) {
+	public Cardapio(String nome, Double preco, String descricao, String imagem, String categoria) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.imagem = imagem;
-    }
+        this.categoria = categoria;
+	}
 }
