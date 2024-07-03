@@ -2,6 +2,7 @@ package com.JavaCoffee.BackEndJC.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Cardapio {
     private String descricao;
     private String imagem;
     
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
@@ -36,5 +37,9 @@ public class Cardapio {
         this.descricao = descricao;
         this.imagem = imagem;
         this.categoria = categoria;
+	}
+
+	public Cardapio(Cardapio cardapio) {
+		// TODO Auto-generated constructor stub
 	}
 }

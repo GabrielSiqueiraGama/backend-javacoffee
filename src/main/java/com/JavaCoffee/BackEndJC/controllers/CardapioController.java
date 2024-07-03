@@ -1,16 +1,17 @@
 package com.JavaCoffee.BackEndJC.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
-import com.JavaCoffee.BackEndJC.model.entities.Categoria;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
 
 
@@ -22,11 +23,8 @@ public class CardapioController {
 	private CardapioRepository cardapioRepository;
 	
 	@PostMapping
-	public Cardapio novoItem(@RequestParam String nome,@RequestParam Double preco,
-			@RequestParam String descricao,@RequestParam String imagem, Categoria categoria) {
-		Cardapio novoItem = new Cardapio(nome, preco, descricao, imagem, categoria);
-		cardapioRepository.save(novoItem);
-		return novoItem;
+	public ResponseEntity<Cardapio> novoItem(@RequestBody Cardapio cardapio) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(cardapioRepository.save(cardapio));
 	}
 	@GetMapping
 	public Iterable<Cardapio> obterItens(){
