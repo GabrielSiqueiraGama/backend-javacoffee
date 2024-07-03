@@ -17,12 +17,6 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	@PostMapping
-	public Categoria novaCategoria(@RequestParam String nome) {
-		Categoria novaCategoria = new Categoria(nome);
-		categoriaRepository.save(novaCategoria);
-		return novaCategoria;
-	}
 	@GetMapping
 	public Iterable<Categoria> getCategoria(){
 		return categoriaRepository.findAll();

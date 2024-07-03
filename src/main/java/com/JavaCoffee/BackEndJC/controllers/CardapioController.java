@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
@@ -23,8 +24,9 @@ public class CardapioController {
 	private CardapioRepository cardapioRepository;
 	
 	@PostMapping
-	public ResponseEntity<Cardapio> novoItem(@RequestBody Cardapio cardapio) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(cardapioRepository.save(cardapio));
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cardapio novoItem(@RequestBody Cardapio cardapio) {
+		return cardapioRepository.save(cardapio);
 	}
 	@GetMapping
 	public Iterable<Cardapio> obterItens(){
