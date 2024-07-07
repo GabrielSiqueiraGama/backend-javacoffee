@@ -27,11 +27,9 @@ public class Cardapio {
     private String descricao;
     private String imagem;
     
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+    private String categoria;
 
-	public Cardapio(String nome, Double preco, String descricao, String imagem, Categoria categoria) {
+	public Cardapio(String nome, Double preco, String descricao, String imagem, String categoria) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
