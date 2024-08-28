@@ -39,11 +39,20 @@ public class CardapioController {
 		return cardapioRepository.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
 	}
 	
-	@PutMapping
-	public Cardapio editarItem(Cardapio cardapio) {
-		cardapioRepository.save(cardapio);
-		return cardapio;
+	@PutMapping("/{id}")
+	public ResponseEntity<Cardapio> editarItem(@PathVariable int id, @RequestBody Cardapio cardapio) {
+	    return cardapioRepository.findById(id)
+	        .map(record -> {
+	            record.setNome(cardapio.getNome());
+	            record.setDescricao(cardapio.getDescricao());
+	            record.setPreco(cardapio.getPreco());
+	            record.setImagem(cardapio.getImagem());
+	            record.setCategoria(cardapio.getCategoria());
+	            cardapioRepository.save(record);
+	            return ResponseEntity.ok().body(record);
+	        }).orElse(ResponseEntity.notFound().build());
 	}
+
 	@PatchMapping("/{id}")
 	public Cardapio editarItemParcialmente(Cardapio cardapio) {
 		//var cardapioid = cardapioRepository.findAllById(cardapio);
