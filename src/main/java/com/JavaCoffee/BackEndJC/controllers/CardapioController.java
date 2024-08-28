@@ -34,7 +34,7 @@ public class CardapioController {
 	public Iterable<Cardapio> obterItens(){
 		return cardapioRepository.findAll();
 	}
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Cardapio> findByID(@PathVariable int id) {
 		return cardapioRepository.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
 	}
