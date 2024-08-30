@@ -3,6 +3,7 @@ package com.JavaCoffee.BackEndJC.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,15 @@ public class CardapioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Cardapio> findByID(@PathVariable int id) {
 		return cardapioRepository.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
+	}
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable int id) {
+		return cardapioRepository.findById(id)
+		        .map(record -> {
+		            cardapioRepository.deleteById(id);
+		            return ResponseEntity.noContent().<Void>build();
+		        }).orElse(ResponseEntity.notFound().build());
+		
 	}
 	
 	@PutMapping("/{id}")
