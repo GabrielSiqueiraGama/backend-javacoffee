@@ -2,13 +2,11 @@ package com.JavaCoffee.BackEndJC.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -22,9 +20,13 @@ public class Cardapio {
     @JsonProperty("_id")
     private int id;
 
+    @NotBlank
     private String nome;
+    @NotBlank
     private Double preco;
+    @NotBlank
     private String descricao;
+    @NotBlank
     private String imagem;
     
     private String categoria;
