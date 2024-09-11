@@ -1,5 +1,7 @@
 package com.JavaCoffee.BackEndJC.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
+import com.JavaCoffee.BackEndJC.service.CardapioService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -27,42 +31,41 @@ import jakarta.validation.constraints.Positive;
 public class CardapioController {
 	
 	@Autowired
-	private CardapioRepository cardapioRepository;
+	private CardapioService cardapioService;
+	
+	public CardapioController(CardapioService cardapioService) {
+		this.cardapioService = cardapioService;
+	}
+	
+	@GetMapping
+	public @ResponseBody List<Cardapio> obterItens(){
+		return cardapioService.list();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Cardapio> findByID(@PathVariable @Positive int id) {
+		return cardapioService.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cardapio novoItem(@RequestBody @Valid Cardapio cardapio) {
-		return cardapioRepository.save(cardapio);
+		return cardapioService.novoItem(cardapio);
 	}
-	@GetMapping
-	public Iterable<Cardapio> obterItens(){
-		return cardapioRepository.findAll();
-	}
-	@GetMapping("/{id}")
-	public ResponseEntity<Cardapio> findByID(@PathVariable @Positive int id) {
-		return cardapioRepository.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
-	}
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable int id) {
-		return cardapioRepository.findById(id)
-		        .map(record -> {
-		            cardapioRepository.deleteById(id);
-		            return ResponseEntity.noContent().<Void>build();
-		        }).orElse(ResponseEntity.notFound().build());
-	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<Cardapio> editarItem(@PathVariable int id, @RequestBody @Valid Cardapio cardapio) {
-	    return cardapioRepository.findById(id)
-	        .map(record -> {
-	            record.setNome(cardapio.getNome());
-	            record.setDescricao(cardapio.getDescricao());
-	            record.setPreco(cardapio.getPreco());
-	            record.setImagem(cardapio.getImagem());
-	            record.setCategoria(cardapio.getCategoria());
-	            cardapioRepository.save(record);
-	            return ResponseEntity.ok().body(record);
-	        }).orElse(ResponseEntity.notFound().build());
+	    return cardapioService.editarItem(id, cardapio)
+	        .map(record -> ResponseEntity.ok().body(record)
+	        ).orElse(ResponseEntity.notFound().build());
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable int id) {
+		if(cardapioService.delete(id)) {
+			return ResponseEntity.noContent().<Void>build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 	@PatchMapping("/{id}")
