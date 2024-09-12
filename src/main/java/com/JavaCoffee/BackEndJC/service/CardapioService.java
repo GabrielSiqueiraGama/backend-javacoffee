@@ -1,7 +1,6 @@
 package com.JavaCoffee.BackEndJC.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +35,7 @@ public class CardapioService {
 		return cardapioRepository.save(cardapio);
 	}
 	
-	public Optional<Cardapio> editarItem(@Positive int id,@Valid Cardapio cardapio) {
+	public Cardapio editarItem(@Positive int id,@Valid Cardapio cardapio) {
 	    return cardapioRepository.findById(id)
 	        .map(record -> {
 	            record.setNome(cardapio.getNome());
@@ -45,15 +44,11 @@ public class CardapioService {
 	            record.setImagem(cardapio.getImagem());
 	            record.setCategoria(cardapio.getCategoria());
 	            return cardapioRepository.save(record);
-	        });
+	        }).orElseThrow(() -> new RecordNotFoundException(id));
 	}
 	
-	public boolean delete(@PathVariable int id) {
-		return cardapioRepository.findById(id)
-		        .map(record -> {
-		            cardapioRepository.deleteById(id);
-		            return true;
-		        }).orElse(false);
+	public void delete(@PathVariable int id) {
+		cardapioRepository.delete(cardapioRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(id)));
 	}
 	
 }

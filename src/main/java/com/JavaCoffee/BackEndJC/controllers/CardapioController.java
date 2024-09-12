@@ -52,17 +52,13 @@ public class CardapioController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cardapio> editarItem(@PathVariable int id, @RequestBody @Valid Cardapio cardapio) {
-	    return cardapioService.editarItem(id, cardapio)
-	        .map(record -> ResponseEntity.ok().body(record)
-	        ).orElse(ResponseEntity.notFound().build());
+	public Cardapio editarItem(@PathVariable int id, @RequestBody @Valid Cardapio cardapio) {
+	    return cardapioService.editarItem(id, cardapio);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable int id) {
-		if(cardapioService.delete(id)) {
-			return ResponseEntity.noContent().<Void>build();
-		}
-		return ResponseEntity.notFound().build();
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id) {
+		cardapioService.delete(id);
 	}
 }
