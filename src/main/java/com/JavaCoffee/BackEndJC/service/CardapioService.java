@@ -3,14 +3,11 @@ package com.JavaCoffee.BackEndJC.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
 
@@ -31,8 +28,8 @@ public class CardapioService {
 		return (List<Cardapio>) cardapioRepository.findAll();
 	}
 	
-	public Optional<Cardapio> findById(@PathVariable @Positive int id) {
-		return cardapioRepository.findById(id);
+	public Cardapio findById(@PathVariable @Positive int id) {
+		return cardapioRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
 	}
 	
 	public Cardapio novoItem(@Valid Cardapio cardapio) {

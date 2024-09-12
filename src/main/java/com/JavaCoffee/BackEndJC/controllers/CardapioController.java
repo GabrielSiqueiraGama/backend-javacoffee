@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,8 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
-import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
+import com.JavaCoffee.BackEndJC.model.entities.Cardapio; 
 import com.JavaCoffee.BackEndJC.service.CardapioService;
 
 import jakarta.validation.Valid;
@@ -43,8 +41,8 @@ public class CardapioController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Cardapio> findByID(@PathVariable @Positive int id) {
-		return cardapioService.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
+	public Cardapio findByID(@PathVariable @Positive int id) {
+		return cardapioService.findById(id);
 	}
 	
 	@PostMapping
@@ -66,12 +64,5 @@ public class CardapioController {
 			return ResponseEntity.noContent().<Void>build();
 		}
 		return ResponseEntity.notFound().build();
-	}
-
-	@PatchMapping("/{id}")
-	public Cardapio editarItemParcialmente(Cardapio cardapio) {
-		//var cardapioid = cardapioRepository.findAllById(cardapio);
-		cardapioRepository.save(cardapio);
-		return cardapio;
 	}
 }

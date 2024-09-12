@@ -1,7 +1,6 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
