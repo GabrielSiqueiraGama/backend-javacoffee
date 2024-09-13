@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio; 
 import com.JavaCoffee.BackEndJC.service.CardapioService;
 
@@ -36,7 +37,7 @@ public class CardapioController {
 	}
 	
 	@GetMapping
-	public @ResponseBody List<Cardapio> obterItens(){
+	public @ResponseBody List<CardapioDTO> obterItens(){
 		return cardapioService.list();
 	}
 	

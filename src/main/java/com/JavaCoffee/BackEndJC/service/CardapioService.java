@@ -1,11 +1,13 @@
 package com.JavaCoffee.BackEndJC.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
 import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
@@ -23,8 +25,14 @@ public class CardapioService {
 		this.cardapioRepository = cardapioRepository;
 	}
 	
-	public List<Cardapio> list(){
-		return (List<Cardapio>) cardapioRepository.findAll();
+	public List<CardapioDTO> list(){
+		List<Cardapio> cardapios = (List<Cardapio>) cardapioRepository.findAll();
+		List<CardapioDTO> dtos = new ArrayList<>(cardapios.size());
+		for(Cardapio cardapio: cardapios) {
+			CardapioDTO dto = new CardapioDTO(cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getImagem(), cardapio.getDescricao(), cardapio.getStatus());
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 	
 	public Cardapio findById(@PathVariable @Positive int id) {
