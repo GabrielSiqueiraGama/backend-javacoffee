@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
 import com.JavaCoffee.BackEndJC.dto.mapper.CardapioMapper;
 import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
-import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 
-@Service
 @Validated
+@Service
 public class CardapioService {
 
 	private CardapioRepository cardapioRepository;
@@ -44,15 +43,15 @@ public class CardapioService {
 		return cardapioMapper.toDTO(cardapioRepository.save(cardapioMapper.toEntity(cardapio)));
 	}
 	
-	public CardapioDTO editarItem(@Positive int id,@Valid Cardapio cardapio) {
+	public CardapioDTO editarItem(@Positive int id,@Valid CardapioDTO cardapio) {
 	    return cardapioRepository.findById(id)
-	        .map(record -> {
-	            record.setNome(cardapio.getNome());
-	            record.setDescricao(cardapio.getDescricao());
-	            record.setPreco(cardapio.getPreco());
-	            record.setImagem(cardapio.getImagem());
-	            record.setCategoria(cardapio.getCategoria());
-	            return cardapioMapper.toDTO(cardapioRepository.save(cardapio));
+	        .map(recordFound -> {
+	            recordFound.setNome(cardapio.nome());
+	            recordFound.setDescricao(cardapio.descricao());
+	            recordFound.setPreco(cardapio.preco());
+	            recordFound.setImagem(cardapio.imagem());
+	            recordFound.setCategoria(cardapio.categoria());
+	            return cardapioMapper.toDTO(cardapioRepository.save(recordFound));
 	        }).orElseThrow(() -> new RecordNotFoundException(id));
 	}
 	
