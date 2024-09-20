@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
-import com.JavaCoffee.BackEndJC.model.entities.Cardapio; 
 import com.JavaCoffee.BackEndJC.service.CardapioService;
 
 import jakarta.validation.Valid;
@@ -42,18 +40,18 @@ public class CardapioController {
 	}
 	
 	@GetMapping("/{id}")
-	public Cardapio findByID(@PathVariable @Positive int id) {
+	public CardapioDTO findByID(@PathVariable @Positive int id) {
 		return cardapioService.findById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cardapio novoItem(@RequestBody @Valid Cardapio cardapio) {
+	public CardapioDTO novoItem(@RequestBody @Valid CardapioDTO cardapio) {
 		return cardapioService.novoItem(cardapio);
 	}
 
 	@PutMapping("/{id}")
-	public Cardapio editarItem(@PathVariable int id, @RequestBody @Valid Cardapio cardapio) {
+	public CardapioDTO editarItem(@PathVariable int id, @RequestBody @Valid CardapioDTO cardapio) {
 	    return cardapioService.editarItem(id, cardapio);
 	}
 	
