@@ -3,6 +3,7 @@ package com.JavaCoffee.BackEndJC.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
+import com.JavaCoffee.BackEndJC.enums.Category;
 import com.JavaCoffee.BackEndJC.model.entities.Cardapio;
 
 @Component 
@@ -12,7 +13,7 @@ public class CardapioMapper {
 		if (cardapio == null) {
 			return null;
 		}
-		return new CardapioDTO(cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getDescricao(), cardapio.getImagem(), cardapio.getCategoria()); 
+		return new CardapioDTO(cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getDescricao(), cardapio.getImagem(), "BEBIDA"); 
 	}
 	
 	public Cardapio toEntity(CardapioDTO cardapioDTO) {
@@ -27,7 +28,7 @@ public class CardapioMapper {
 		cardapio.setNome(cardapioDTO.nome());
 		cardapio.setPreco(cardapioDTO.preco());
 		cardapio.setDescricao(cardapioDTO.descricao());
-		cardapio.setCategoria(cardapioDTO.categoria());
+		cardapio.setCategoria(Category.BEBIDA);
 		cardapio.setImagem(cardapioDTO.imagem());
 		
 		return cardapio;

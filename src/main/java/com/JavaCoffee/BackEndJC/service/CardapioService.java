@@ -1,6 +1,5 @@
 package com.JavaCoffee.BackEndJC.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
 import com.JavaCoffee.BackEndJC.dto.mapper.CardapioMapper;
+import com.JavaCoffee.BackEndJC.enums.Category;
 import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
 
@@ -50,7 +50,7 @@ public class CardapioService {
 	            recordFound.setDescricao(cardapio.descricao());
 	            recordFound.setPreco(cardapio.preco());
 	            recordFound.setImagem(cardapio.imagem());
-	            recordFound.setCategoria(cardapio.categoria());
+	            recordFound.setCategoria(Category.BEBIDA);
 	            return cardapioMapper.toDTO(cardapioRepository.save(recordFound));
 	        }).orElseThrow(() -> new RecordNotFoundException(id));
 	}
