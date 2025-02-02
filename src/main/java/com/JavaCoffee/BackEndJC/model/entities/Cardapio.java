@@ -20,6 +20,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "cardapio")
 @SQLDelete(sql = "UPDATE cardapio SET status = 'Inativo' WHERE id = ?")
 public class Cardapio {
