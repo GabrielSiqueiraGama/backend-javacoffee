@@ -1,8 +1,10 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,12 +37,12 @@ public class User implements UserDetails{
     @NotBlank
 	private String password;
     @NotBlank
-	private String role;
+	private UserRole role;
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));//Caso seja admin, vai ter os direitos de admnin e de usuario também.
+		else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 	@Override
 	public String getUsername() {
