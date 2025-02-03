@@ -1,5 +1,10 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -15,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity(name = "users")
-public class User {
+public class User implements UserDetails{
 /*	id TEXT PRIMARY KEY UNIQUE NOT NULL,
 	login TEXT NOT NULL UNIQUE,
 	password TEXT NOT NULL
@@ -31,4 +36,15 @@ public class User {
 	private String password;
     @NotBlank
 	private String role;
+    
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return login;
+	}
 }
