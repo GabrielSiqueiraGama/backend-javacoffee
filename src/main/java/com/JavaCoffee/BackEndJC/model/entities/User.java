@@ -39,6 +39,11 @@ public class User implements UserDetails{
     @NotBlank
 	private UserRole role;
     
+    public User(String login, String password, UserRole role) {
+    	this.login = login;
+    	this.password = password;
+    	this.role = role;
+    }
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));//Caso seja admin, vai ter os direitos de admnin e de usuario também.
