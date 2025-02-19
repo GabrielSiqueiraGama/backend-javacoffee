@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class User implements UserDetails{
 	private String login;
     @NotBlank
 	private String password;
-    @NotBlank
+    @NotNull
 	private UserRole role;
     
     public User(String login, String password, UserRole role) {
