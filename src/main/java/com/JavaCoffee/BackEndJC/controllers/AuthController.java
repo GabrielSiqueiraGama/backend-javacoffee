@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaCoffee.BackEndJC.dto.AuthDTO;
+import com.JavaCoffee.BackEndJC.dto.LoginResponseDTO;
 import com.JavaCoffee.BackEndJC.dto.RegisterDTO;
 import com.JavaCoffee.BackEndJC.model.entities.User;
 import com.JavaCoffee.BackEndJC.model.repositories.UserRepository;
+import com.JavaCoffee.BackEndJC.service.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -28,11 +30,17 @@ public class AuthController {
 	@Autowired
 	private UserRepository repository;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@PostMapping("/login")
 	public ResponseEntity login(@RequestBody @Valid AuthDTO data) {
 		var userNamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
 		var auth = this.authenticationManager.authenticate(userNamePassword); 
-		return ResponseEntity.ok().build();
+		
+		var token = tokenService.generateToken((User) auth.getPrincipal());
+		
+		return ResponseEntity.ok(new LoginResponseDTO(token));
 	}
 	
 	@PostMapping("/register")

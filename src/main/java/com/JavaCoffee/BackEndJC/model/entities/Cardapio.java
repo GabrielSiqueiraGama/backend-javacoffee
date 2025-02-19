@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -30,13 +29,13 @@ public class Cardapio {
     @JsonProperty("_id")
     private int id;
 
-    @NotBlank
+    @NotNull
     private String nome;
-    @NotBlank
+    @NotNull
     private Double preco;
-    @NotBlank
+    @NotNull
     private String descricao;
-    @NotBlank
+    @NotNull
     private String imagem;
     
     //@Pattern(regexp = "Bebida| Lanche| Duplo")

@@ -33,9 +33,9 @@ public class User implements UserDetails{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("_id")
 	private Long id;
-    @NotBlank
+    @NotNull
 	private String login;
-    @NotBlank
+    @NotNull
 	private String password;
     @NotNull
 	private UserRole role;

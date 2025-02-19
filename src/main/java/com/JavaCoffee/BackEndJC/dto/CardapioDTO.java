@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public record CardapioDTO(
 		@JsonProperty("_id") int id,
 		@NotBlank String nome,
-		@NotBlank @NotNull double preco,
+		@NotNull double preco,
 		@NotBlank @NotNull String descricao,
 		@NotBlank @NotNull String imagem,
 		@NotBlank @NotNull String categoria) {
