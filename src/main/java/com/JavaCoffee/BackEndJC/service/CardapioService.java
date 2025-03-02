@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
 import com.JavaCoffee.BackEndJC.dto.mapper.CardapioMapper;
 import com.JavaCoffee.BackEndJC.enums.Category;
+import com.JavaCoffee.BackEndJC.exception.ProductNotFoundException;
 import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
 import com.JavaCoffee.BackEndJC.model.repositories.CardapioRepository;
 
@@ -36,7 +37,7 @@ public class CardapioService {
 	}
 	
 	public CardapioDTO findById(@PathVariable @Positive int id) {
-		return cardapioRepository.findById(id).map(cardapioMapper::toDTO).orElseThrow(() -> new RecordNotFoundException(id));
+		return cardapioRepository.findById(id).map(cardapioMapper::toDTO).orElseThrow(() -> new ProductNotFoundException());
 	}
 	
 	public CardapioDTO novoItem(@Valid CardapioDTO cardapio) {
