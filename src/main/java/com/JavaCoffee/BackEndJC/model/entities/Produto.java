@@ -20,9 +20,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "cardapio")
-@SQLDelete(sql = "UPDATE cardapio SET status = 'Inativo' WHERE id = ?")
-public class Cardapio {
+@Entity(name = "produto")
+@SQLDelete(sql = "UPDATE produto SET status = 'Inativo' WHERE id = ?")
+public class Produto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ public class Cardapio {
     @Pattern(regexp = "Ativo|Inativo")
     private String status = "Ativo"; 
     
-	public Cardapio(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
+	public Produto(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -55,7 +55,7 @@ public class Cardapio {
         this.categoria = categoria;
 	}
 
-	public Cardapio(Cardapio cardapio) {
+	public Produto(Produto produto) {
 		// TODO Auto-generated constructor stub
 	}
 }

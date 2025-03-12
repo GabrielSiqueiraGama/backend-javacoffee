@@ -30,9 +30,10 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST, "auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "auth/register").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/cardapio/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/api/cardapio").hasRole("ADMIN")
-						.anyRequest().authenticated())
+						.requestMatchers(HttpMethod.GET, "/api/produto/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/produto").hasRole("ADMIN")
+						//.anyRequest().authenticated())
+						.anyRequest().permitAll())//apenas durante desenvolvimento para facilitar testes e afins
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}

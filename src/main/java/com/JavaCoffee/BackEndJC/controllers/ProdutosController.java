@@ -16,48 +16,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.JavaCoffee.BackEndJC.dto.CardapioDTO;
-import com.JavaCoffee.BackEndJC.service.CardapioService;
+import com.JavaCoffee.BackEndJC.dto.ProtutoDTO;
+import com.JavaCoffee.BackEndJC.service.ProdutoService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/api/cardapio")
-public class CardapioController {
+@RequestMapping("/api/produto")
+public class ProdutosController {
 	
 	@Autowired
-	private CardapioService cardapioService;
+	private ProdutoService produtoService;
 	
-	public CardapioController(CardapioService cardapioService) {
-		this.cardapioService = cardapioService;
+	public ProdutosController(ProdutoService produtoService) {
+		this.produtoService = produtoService;
 	}
 	
 	@GetMapping
-	public @ResponseBody List<CardapioDTO> obterItens(){
-		return cardapioService.list();
+	public @ResponseBody List<ProtutoDTO> obterItens(){
+		return produtoService.list();
 	}
 	
 	@GetMapping("/{id}")
-	public CardapioDTO findByID(@PathVariable @Positive int id) {
-		return cardapioService.findById(id);
+	public ProtutoDTO findByID(@PathVariable @Positive int id) {
+		return produtoService.findById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CardapioDTO novoItem(@RequestBody @Valid CardapioDTO cardapio) {
-		return cardapioService.novoItem(cardapio);
+	public ProtutoDTO novoItem(@RequestBody @Valid ProtutoDTO produto) {
+		return produtoService.novoItem(produto);
 	}
 
 	@PutMapping("/{id}")
-	public CardapioDTO editarItem(@PathVariable int id, @RequestBody @Valid CardapioDTO cardapio) {
-	    return cardapioService.editarItem(id, cardapio);
+	public ProtutoDTO editarItem(@PathVariable int id, @RequestBody @Valid ProtutoDTO produto) {
+	    return produtoService.editarItem(id, produto);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable int id) {
-		cardapioService.delete(id);
+		produtoService.delete(id);
 	}
 }
