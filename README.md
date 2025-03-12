@@ -30,10 +30,10 @@ Este projeto é um backend para uma cafeteria, desenvolvido em Java com Spring B
 
 ### 🛍 Produtos
 
-- **GET** `/cardapio` → Lista todos os produtos
-- **POST** `/cardapio` → Cria um novo produto (admin)
-- **PUT** `/cardapio/{id}` → Atualiza um produto (admin)
-- **DELETE** `/cardapio/{id}` → Remove um produto (admin)
+- **GET** `/produto` → Lista todos os produtos
+- **POST** `/produto` → Cria um novo produto (admin)
+- **PUT** `/produto/{id}` → Atualiza um produto (admin)
+- **DELETE** `/produto/{id}` → Remove um produto (admin)
 
 ### 🔑 Autenticação
 
