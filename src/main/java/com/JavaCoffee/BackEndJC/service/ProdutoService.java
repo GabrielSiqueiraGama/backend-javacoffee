@@ -36,7 +36,7 @@ public class ProdutoService {
 				.collect(Collectors.toList());
 	}
 	
-	public ProtutoDTO findById(@PathVariable @Positive int id) {
+	public ProtutoDTO findById(@Positive int id) {
 		return produtoRepository.findById(id).map(produtoMapper::toDTO).orElseThrow(() -> new ProductNotFoundException());
 	}
 	
@@ -51,12 +51,12 @@ public class ProdutoService {
 	            recordFound.setDescricao(produto.descricao());
 	            recordFound.setPreco(produto.preco());
 	            recordFound.setImagem(produto.imagem());
-	            recordFound.setCategoria(Category.BEBIDA);
+	            recordFound.setCategoria(this.produtoMapper.convertCategoryValue(produto.categoria()));
 	            return produtoMapper.toDTO(produtoRepository.save(recordFound));
 	        }).orElseThrow(() -> new RecordNotFoundException(id));
 	}
 	
-	public void delete(@PathVariable int id) {
+	public void delete(int id) {
 		produtoRepository.delete(produtoRepository.findById(id).orElseThrow(()-> new RecordNotFoundException(id)));
 	}
 	

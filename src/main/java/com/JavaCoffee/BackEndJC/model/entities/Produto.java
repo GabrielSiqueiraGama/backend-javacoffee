@@ -1,10 +1,11 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.validator.constraints.Length;
 
 import com.JavaCoffee.BackEndJC.enums.Category;
+import com.JavaCoffee.BackEndJC.enums.Status;
 import com.JavaCoffee.BackEndJC.enums.converters.CategoryConverter;
+import com.JavaCoffee.BackEndJC.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Convert;
@@ -39,13 +40,14 @@ public class Produto {
     private String imagem;
     
     //@Pattern(regexp = "Bebida| Lanche| Duplo")
+    //@Enumerated(EnumType.ORDINAL)//salva o enum como numero, precisa de update
+    //@Enumerated(EnumType.STRING) salva como string, precisa de update
     @Convert(converter = CategoryConverter.class)
     private Category categoria;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Ativo|Inativo")
-    private String status = "Ativo"; 
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ATIVO; 
     
 	public Produto(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
         this.nome = nome;
