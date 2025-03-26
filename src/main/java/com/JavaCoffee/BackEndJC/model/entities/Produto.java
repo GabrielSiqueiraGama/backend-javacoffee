@@ -1,5 +1,8 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.SQLDelete;
 
 import com.JavaCoffee.BackEndJC.enums.Category;
@@ -8,11 +11,13 @@ import com.JavaCoffee.BackEndJC.enums.converters.CategoryConverter;
 import com.JavaCoffee.BackEndJC.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -48,6 +53,9 @@ public class Produto {
     @NotNull
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ATIVO; 
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)//Aqui coloca como cascata, a alteração realizada nessa entidade pode afetar a filha e caso seja excluida a filha também é.
+    private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     
 	public Produto(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
         this.nome = nome;
