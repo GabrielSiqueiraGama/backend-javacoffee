@@ -17,6 +17,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -54,8 +55,9 @@ public class Produto {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ATIVO; 
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)//Aqui coloca como cascata, a alteração realizada nessa entidade pode afetar a filha e caso seja excluida a filha também é.
-    private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "produto")//Aqui coloca como cascata, a alteração realizada nessa entidade pode afetar a filha e caso seja excluida a filha também é.
+    //@JoinColumn(name = "acompanhamento")
+    private List<Acompanhamento> acompanhamentos = new ArrayList<Acompanhamento>();
     
 	public Produto(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
         this.nome = nome;
