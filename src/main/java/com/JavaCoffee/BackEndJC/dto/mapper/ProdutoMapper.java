@@ -13,7 +13,7 @@ public class ProdutoMapper {
 		if (produto == null) {
 			return null;
 		}
-		return new ProtutoDTO(produto.getId(), produto.getNome(), produto.getPreco(), produto.getDescricao(), produto.getImagem(), produto.getCategoria().getValue()); 
+		return new ProtutoDTO(produto.getId(), produto.getNome(), produto.getPreco(), produto.getDescricao(), produto.getImagem(), produto.getCategoria().getValue(), produto.getAcompanhamentos()); 
 	}
 	
 	public Produto toEntity(ProtutoDTO produtoDTO) {

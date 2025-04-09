@@ -1,6 +1,9 @@
 package com.JavaCoffee.BackEndJC.model.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,5 +35,6 @@ public class Acompanhamento {
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "produto_id", nullable = false)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Produto produto;
 }

@@ -1,5 +1,8 @@
 package com.JavaCoffee.BackEndJC.dto;
 
+import java.util.List;
+
+import com.JavaCoffee.BackEndJC.model.entities.Acompanhamento;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +14,7 @@ public record ProtutoDTO(
 		@NotNull double preco,
 		@NotBlank @NotNull String descricao,
 		@NotBlank @NotNull String imagem,
-		@NotBlank @NotNull String categoria) {
+		@NotBlank @NotNull String categoria,
+		List<Acompanhamento> acompanhamentos) {
 
 }
