@@ -14,6 +14,5 @@ public record ProtutoDTO(
 		@NotBlank @NotNull String descricao,
 		@NotBlank @NotNull String imagem,
 		@NotBlank @NotNull String categoria,
-		List<AcompanhamentoDTO> acompanhamentos) {
-
+		List<IngredienteDTO> ingredientes) {
 }

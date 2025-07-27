@@ -17,12 +17,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name ="acompanhamento")
+@Entity(name ="ingrediente")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Acompanhamento {
+public class Ingrediente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

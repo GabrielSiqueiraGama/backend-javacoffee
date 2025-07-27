@@ -55,8 +55,8 @@ public class Produto {
     private Status status = Status.ATIVO; 
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "produto")//Aqui coloca como cascata, a alteração realizada nessa entidade pode afetar a filha e caso seja excluida a filha também é.
-    //@JoinColumn(name = "acompanhamento")
-    private List<Acompanhamento> acompanhamentos = new ArrayList<Acompanhamento>();
+    //@JoinColumn(name = "ingredientes")
+    private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     
 	//@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	//@JoinColumn(name = "combo_id", nullable = false)

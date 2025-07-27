@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.JavaCoffee.BackEndJC.dto.AcompanhamentoDTO;
+import com.JavaCoffee.BackEndJC.dto.IngredienteDTO;
 import com.JavaCoffee.BackEndJC.dto.ProtutoDTO;
 import com.JavaCoffee.BackEndJC.enums.Category;
 import com.JavaCoffee.BackEndJC.model.entities.Produto;
@@ -17,10 +17,10 @@ public class ProdutoMapper {
 		if (produto == null) {
 			return null;
 		}
-		List<AcompanhamentoDTO> acompanhamentos = produto.getAcompanhamentos().stream()
-				.map(acompanhamento -> new AcompanhamentoDTO(acompanhamento.getId(), acompanhamento.getNome(), acompanhamento.getDescricao()))
+		List<IngredienteDTO> ingredientes = produto.getIngredientes().stream()
+				.map(ingrediente -> new IngredienteDTO(ingrediente.getId(), ingrediente.getNome(), ingrediente.getDescricao()))
 				.collect(Collectors.toList());
-		return new ProtutoDTO(produto.getId(), produto.getNome(), produto.getPreco(), produto.getDescricao(), produto.getImagem(), produto.getCategoria().getValue(), acompanhamentos); 
+		return new ProtutoDTO(produto.getId(), produto.getNome(), produto.getPreco(), produto.getDescricao(), produto.getImagem(), produto.getCategoria().getValue(), ingredientes); 
 	}
 	
 	public Produto toEntity(ProtutoDTO produtoDTO) {
