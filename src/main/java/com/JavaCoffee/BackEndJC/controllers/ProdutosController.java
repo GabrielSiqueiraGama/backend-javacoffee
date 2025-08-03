@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.JavaCoffee.BackEndJC.dto.ProtutoDTO;
+import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
 import com.JavaCoffee.BackEndJC.service.ProdutoService;
 
 import jakarta.validation.Valid;
@@ -34,23 +34,23 @@ public class ProdutosController {
 	}
 	
 	@GetMapping
-	public List<ProtutoDTO> obterItens(){
+	public List<ProdutoDTO> obterItens(){
 		return produtoService.list();
 	}
 	
 	@GetMapping("/{id}")
-	public ProtutoDTO findByID(@PathVariable @Positive int id) {
+	public ProdutoDTO findByID(@PathVariable @Positive int id) {
 		return produtoService.findById(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ProtutoDTO novoItem(@RequestBody @Valid ProtutoDTO produto) {
+	public ProdutoDTO novoItem(@RequestBody @Valid ProdutoDTO produto) {
 		return produtoService.novoItem(produto);
 	}
 
 	@PutMapping("/{id}")
-	public ProtutoDTO editarItem(@PathVariable int id, @RequestBody @Valid ProtutoDTO produto) {
+	public ProdutoDTO editarItem(@PathVariable int id, @RequestBody @Valid ProdutoDTO produto) {
 	    return produtoService.editarItem(id, produto);
 	}
 	

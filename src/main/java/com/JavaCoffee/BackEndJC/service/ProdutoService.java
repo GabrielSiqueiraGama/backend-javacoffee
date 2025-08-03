@@ -5,13 +5,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.JavaCoffee.BackEndJC.dto.ProtutoDTO;
+import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
 import com.JavaCoffee.BackEndJC.dto.mapper.ProdutoMapper;
-import com.JavaCoffee.BackEndJC.enums.Category;
 import com.JavaCoffee.BackEndJC.exception.ProductNotFoundException;
 import com.JavaCoffee.BackEndJC.exception.RecordNotFoundException;
+import com.JavaCoffee.BackEndJC.model.entities.Produto;
 import com.JavaCoffee.BackEndJC.model.repositories.ProdutoRepository;
 
 import jakarta.validation.Valid;
@@ -29,29 +28,32 @@ public class ProdutoService {
 		this.produtoMapper = produtoMapper;
 	}
 	
-	public List<ProtutoDTO> list(){
+	public List<ProdutoDTO> list(){
 		return produtoRepository.findAll()
 				.stream()
 				.map(produtoMapper::toDTO)
 				.collect(Collectors.toList());
 	}
 	
-	public ProtutoDTO findById(@Positive int id) {
+	public ProdutoDTO findById(@Positive int id) {
 		return produtoRepository.findById(id).map(produtoMapper::toDTO).orElseThrow(() -> new ProductNotFoundException());
 	}
 	
-	public ProtutoDTO novoItem(@Valid ProtutoDTO produto) {
+	public ProdutoDTO novoItem(@Valid ProdutoDTO produto) {
 		return produtoMapper.toDTO(produtoRepository.save(produtoMapper.toEntity(produto)));
 	}
 	
-	public ProtutoDTO editarItem(@Positive int id,@Valid ProtutoDTO produto) {
+	public ProdutoDTO editarItem(@Positive int id,@Valid ProdutoDTO produtoDTO) {
 	    return produtoRepository.findById(id)
 	        .map(recordFound -> {
-	            recordFound.setNome(produto.nome());
-	            recordFound.setDescricao(produto.descricao());
-	            recordFound.setPreco(produto.preco());
-	            recordFound.setImagem(produto.imagem());
-	            recordFound.setCategoria(this.produtoMapper.convertCategoryValue(produto.categoria()));
+	        	Produto produto = produtoMapper.toEntity(produtoDTO);
+	            recordFound.setNome(produtoDTO.nome());
+	            recordFound.setDescricao(produtoDTO.descricao());
+	            recordFound.setPreco(produtoDTO.preco());
+	            recordFound.setImagem(produtoDTO.imagem());
+	            recordFound.setCategoria(this.produtoMapper.convertCategoryValue(produtoDTO.categoria()));
+	            recordFound.getIngredientes().clear();
+	            produto.getIngredientes().forEach(recordFound.getIngredientes()::add);
 	            return produtoMapper.toDTO(produtoRepository.save(recordFound));
 	        }).orElseThrow(() -> new RecordNotFoundException(id));
 	}

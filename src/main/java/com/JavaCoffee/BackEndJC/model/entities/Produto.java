@@ -3,8 +3,6 @@ package com.JavaCoffee.BackEndJC.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.SQLDelete;
-
 import com.JavaCoffee.BackEndJC.enums.Category;
 import com.JavaCoffee.BackEndJC.enums.Status;
 import com.JavaCoffee.BackEndJC.enums.converters.CategoryConverter;
@@ -20,14 +18,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "produto")
-@SQLDelete(sql = "UPDATE produto SET status = 'Inativo' WHERE id = ?")
+//@SQLDelete(sql = "UPDATE produto SET status = 'Inativo' WHERE id = ?")
 public class Produto {
     
     @Id
@@ -56,7 +57,7 @@ public class Produto {
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "produto")//Aqui coloca como cascata, a alteração realizada nessa entidade pode afetar a filha e caso seja excluida a filha também é.
     //@JoinColumn(name = "ingredientes")
-    private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+    private List<ProdutoIngrediente> ingredientes = new ArrayList<ProdutoIngrediente>();
     
 	//@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	//@JoinColumn(name = "combo_id", nullable = false)

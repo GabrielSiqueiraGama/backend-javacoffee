@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record ProtutoDTO(
+public record ProdutoDTO(
 		@JsonProperty("_id") int id,
 		@NotBlank String nome,
 		@NotNull double preco,
