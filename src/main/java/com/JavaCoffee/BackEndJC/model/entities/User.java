@@ -14,13 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+
 @Entity(name = "users")
 public class User implements UserDetails{
 /*	id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -54,4 +49,39 @@ public class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return login;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public UserRole getRole() {
+		return role;
+	}
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+	public User(Long id, @NotNull String login, @NotNull String password, @NotNull UserRole role) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.role = role;
+	}
+	public User() {
+		super();
+	}
+	
 }

@@ -17,16 +17,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity(name = "produto")
 //@SQLDelete(sql = "UPDATE produto SET status = 'Inativo' WHERE id = ?")
 public class Produto {
@@ -63,15 +55,115 @@ public class Produto {
 	//@JoinColumn(name = "combo_id", nullable = false)
 	//private Combo combo;
     
-	public Produto(String nome, Double preco, String descricao, String imagem, @Pattern(regexp = "Bebida| Lanche| Duplo") Category categoria) {
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.imagem = imagem;
-        this.categoria = categoria;
-	}
+
 
 	public Produto(Produto produto) {
-		// TODO Auto-generated constructor stub
 	}
+
+	public Produto() {
+	}
+
+
+
+	public Produto(int id, @NotNull String nome, @NotNull Double preco, @NotNull String descricao,
+			@NotNull String imagem, Category categoria, @NotNull Status status, List<ProdutoIngrediente> ingredientes) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.descricao = descricao;
+		this.imagem = imagem;
+		this.categoria = categoria;
+		this.status = status;
+		this.ingredientes = ingredientes;
+	}
+	public Produto( @NotNull String nome, @NotNull Double preco, @NotNull String descricao,
+			@NotNull String imagem, Category categoria, @NotNull Status status, List<ProdutoIngrediente> ingredientes) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.descricao = descricao;
+		this.imagem = imagem;
+		this.categoria = categoria;
+		this.status = status;
+		this.ingredientes = ingredientes;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public Category getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Category categoria) {
+		this.categoria = categoria;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public List<ProdutoIngrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(List<ProdutoIngrediente> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", descricao=" + descricao + ", imagem="
+				+ imagem + ", categoria=" + categoria + ", status=" + status + ", ingredientes=" + ingredientes
+				+ ", getId()=" + getId() + ", getNome()=" + getNome() + ", getPreco()=" + getPreco()
+				+ ", getDescricao()=" + getDescricao() + ", getImagem()=" + getImagem() + ", getCategoria()="
+				+ getCategoria() + ", getStatus()=" + getStatus() + ", getIngredientes()=" + getIngredientes()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
+	
 }

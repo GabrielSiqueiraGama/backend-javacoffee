@@ -6,13 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "produto_ingrediente")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor	
 public class ProdutoIngrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +20,47 @@ public class ProdutoIngrediente {
     @ManyToOne(optional = false)
     @JoinColumn(name = "ingrediente_id")
     private Ingrediente ingrediente;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public Ingrediente getIngrediente() {
+		return ingrediente;
+	}
+
+	public void setIngrediente(Ingrediente ingrediente) {
+		this.ingrediente = ingrediente;
+	}
+
+	public ProdutoIngrediente(Long id, Produto produto, Ingrediente ingrediente) {
+		super();
+		this.id = id;
+		this.produto = produto;
+		this.ingrediente = ingrediente;
+	}
+
+	public ProdutoIngrediente(Produto produto, Ingrediente ingrediente) {
+		super();
+		this.produto = produto;
+		this.ingrediente = ingrediente;
+	}
+
+	public ProdutoIngrediente() {
+		super();
+	}
+    
+    
 }
