@@ -2,6 +2,8 @@ package com.JavaCoffee.BackEndJC.dto;
 
 import java.util.List;
 
+import com.JavaCoffee.BackEndJC.enums.Category;
+import com.JavaCoffee.BackEndJC.enums.validation.ValueOfEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +15,6 @@ public record ProdutoDTO(
 		@NotNull double preco,
 		@NotBlank @NotNull String descricao,
 		@NotBlank @NotNull String imagem,
-		@NotBlank @NotNull String categoria,
+		@NotBlank @NotNull @ValueOfEnum(enumClass = Category.class) String categoria,
 		List<IngredienteDTO> ingredientes) {
 }
