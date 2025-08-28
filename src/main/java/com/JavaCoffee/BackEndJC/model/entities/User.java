@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
 
+@SuppressWarnings("serial")
 @Entity(name = "users")
 public class User implements UserDetails{
 /*	id TEXT PRIMARY KEY UNIQUE NOT NULL,

@@ -79,8 +79,6 @@ public class Produto {
 	}
 	public Produto( @NotNull String nome, @NotNull Double preco, @NotNull String descricao,
 			@NotNull String imagem, Category categoria, @NotNull Status status, List<ProdutoIngrediente> ingredientes) {
-		super();
-		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;

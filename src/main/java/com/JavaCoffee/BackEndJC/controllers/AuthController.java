@@ -33,7 +33,7 @@ public class AuthController {
 	private TokenService tokenService;
 	
 	@PostMapping("/login")
-	public ResponseEntity login(@RequestBody @Valid AuthDTO data) {
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthDTO data) {
 		var userNamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
 		var auth = this.authenticationManager.authenticate(userNamePassword); 
 		
@@ -43,7 +43,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
+	public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
 		if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build(); //Confere se há uma conta criada com este login antes de registrar.
 		
 		String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());//encripta a senha no banco de daodos
