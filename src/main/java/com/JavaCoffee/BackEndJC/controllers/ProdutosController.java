@@ -1,7 +1,5 @@
 package com.JavaCoffee.BackEndJC.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.JavaCoffee.BackEndJC.dto.ProductPageDTO;
 import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
 import com.JavaCoffee.BackEndJC.service.ProdutoService;
 
@@ -34,9 +33,14 @@ public class ProdutosController {
 	}
 	
 	@GetMapping
-	public List<ProdutoDTO> obterItens(){
+	public ProductPageDTO obterItens(){
 		return produtoService.list();
 	}
+	
+	/*@GetMapping
+	public List<ProdutoDTO> obterItens(){
+		return produtoService.list();
+	}*/
 	
 	@GetMapping("/{id}")
 	public ProdutoDTO findByID(@PathVariable @Positive int id) {

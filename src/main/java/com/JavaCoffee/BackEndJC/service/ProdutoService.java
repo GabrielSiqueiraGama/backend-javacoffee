@@ -3,9 +3,12 @@ package com.JavaCoffee.BackEndJC.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.JavaCoffee.BackEndJC.dto.ProductPageDTO;
 import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
 import com.JavaCoffee.BackEndJC.dto.mapper.ProdutoMapper;
 import com.JavaCoffee.BackEndJC.exception.ProductNotFoundException;
@@ -28,12 +31,20 @@ public class ProdutoService {
 		this.produtoMapper = produtoMapper;
 	}
 	
+	public ProductPageDTO list(){
+		Page<Produto> page = produtoRepository.findAll(PageRequest.of(0, 10));
+		List<ProdutoDTO> products = page.get().map(produtoMapper::toDTO)
+				.collect(Collectors.toList());
+		return new ProductPageDTO(products, page.getTotalElements(), page.getTotalPages());
+
+	}
+	/*
 	public List<ProdutoDTO> list(){
 		return produtoRepository.findAll()
 				.stream()
 				.map(produtoMapper::toDTO)
 				.collect(Collectors.toList());
-	}
+	}*/
 	
 	public ProdutoDTO findById(@Positive int id) {
 		return produtoRepository.findById(id).map(produtoMapper::toDTO).orElseThrow(() -> new ProductNotFoundException());
