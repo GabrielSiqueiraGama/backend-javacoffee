@@ -19,7 +19,9 @@ import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
 import com.JavaCoffee.BackEndJC.service.ProdutoService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Validated
 @RestController
@@ -34,7 +36,7 @@ public class ProdutosController {
 	}
 	
 	@GetMapping
-	public ProductPageDTO obterItens(@RequestParam int pages, @RequestParam int pageSize){
+	public ProductPageDTO obterItens(@RequestParam(defaultValue = "0") @PositiveOrZero int pages, @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize){
 		return produtoService.list(pages, pageSize);
 	}
 	

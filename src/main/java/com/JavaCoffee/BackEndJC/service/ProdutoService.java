@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.JavaCoffee.BackEndJC.dto.ProductPageDTO;
 import com.JavaCoffee.BackEndJC.dto.ProdutoDTO;
@@ -17,7 +18,9 @@ import com.JavaCoffee.BackEndJC.model.entities.Produto;
 import com.JavaCoffee.BackEndJC.model.repositories.ProdutoRepository;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Validated
 @Service
@@ -31,8 +34,8 @@ public class ProdutoService {
 		this.produtoMapper = produtoMapper;
 	}
 	
-	public ProductPageDTO list(int pages, int pageSizes){
-		Page<Produto> page = produtoRepository.findAll(PageRequest.of(pages, pageSizes));
+	public ProductPageDTO list(@PositiveOrZero int pages, @RequestParam @Positive @Max(100) int pageSize){
+		Page<Produto> page = produtoRepository.findAll(PageRequest.of(pages, pageSize));
 		List<ProdutoDTO> products = page.get().map(produtoMapper::toDTO)
 				.collect(Collectors.toList());
 		return new ProductPageDTO(products, page.getTotalElements(), page.getTotalPages());
