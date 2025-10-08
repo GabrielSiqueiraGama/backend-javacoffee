@@ -31,8 +31,8 @@ public class ProdutoService {
 		this.produtoMapper = produtoMapper;
 	}
 	
-	public ProductPageDTO list(){
-		Page<Produto> page = produtoRepository.findAll(PageRequest.of(0, 10));
+	public ProductPageDTO list(int pages, int pageSizes){
+		Page<Produto> page = produtoRepository.findAll(PageRequest.of(pages, pageSizes));
 		List<ProdutoDTO> products = page.get().map(produtoMapper::toDTO)
 				.collect(Collectors.toList());
 		return new ProductPageDTO(products, page.getTotalElements(), page.getTotalPages());
